@@ -1,4 +1,4 @@
-from uplink import Consumer, get, post, Body, delete, Query, put
+from uplink import Consumer, Body, Query, get, post, delete, put
 
 
 class Account(Consumer):
