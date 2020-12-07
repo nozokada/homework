@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import TokenResponse, MessageResponse
+from homework.resources.constants import BAD_PASSWORD
 
 
 class TestGenerateToken:
@@ -24,7 +25,7 @@ class TestGenerateToken:
     def test_generate_token_bad_password(self, account, create_test_user, username_generator, password_generator):
         username = username_generator()
         create_test_user(username=username, password=password_generator(), teardown=True)
-        resp = account.generate_token(userName=username, password='badpassword')
+        resp = account.generate_token(userName=username, password=BAD_PASSWORD)
         assert resp.status_code == HTTPStatus.OK
         assert TokenResponse(**resp.json()) == TokenResponse(status='Failed', result='User authorization failed.')
 

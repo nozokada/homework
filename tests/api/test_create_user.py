@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import MessageResponse
+from homework.resources.constants import BAD_PASSWORD
 
 
 class TestCreateUser:
@@ -24,9 +25,7 @@ class TestCreateUser:
         assert MessageResponse(**resp.json()) == MessageResponse(code='1200', message='UserName and Password required.')
 
     def test_create_new_user_with_weak_password(self, account, username_generator):
-        username = username_generator()
-        password = 'badpassword'
-        resp = account.create_user(userName=username, password=password)
+        resp = account.create_user(userName=username_generator(), password=BAD_PASSWORD)
         assert resp.status_code == HTTPStatus.BAD_REQUEST
         assert MessageResponse(**resp.json()) == MessageResponse(
             code='1300',

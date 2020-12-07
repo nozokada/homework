@@ -1,3 +1,6 @@
+from homework.resources.constants import BAD_PASSWORD
+
+
 class TestUI:
 
     def test_login(self, selenium_webdriver, create_test_user, username_generator, password_generator, login_with_ui):
@@ -13,6 +16,6 @@ class TestUI:
     ):
         username = username_generator()
         create_test_user(username=username, password=password_generator(), teardown=True)
-        login_with_ui(username=username, password='badpassword')
+        login_with_ui(username=username, password=BAD_PASSWORD)
         output = selenium_webdriver.find_element_by_id('output')
         assert output.text == 'Invalid username or password!'
