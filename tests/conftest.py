@@ -73,3 +73,14 @@ def login_with_ui(selenium_webdriver, create_test_user, username_generator, pass
         login_button.click()
 
     return _
+
+
+@pytest.fixture
+def get_book_title_and_link(selenium_webdriver):
+    def _(at: int):
+        selenium_webdriver.get(f'{DEMO_QA_URL}/books')
+        book_rows = selenium_webdriver.find_elements_by_xpath("//div[@class='rt-tbody']//div[@class='rt-tr-group']")
+        book_link = book_rows[at].find_element_by_xpath("//div[@class='action-buttons']/span/a")
+        return book_link.text, book_link
+
+    return _
