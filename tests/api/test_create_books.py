@@ -13,7 +13,7 @@ class TestCreateBooks:
     def test_create_books_with_bad_format(self, bookstore, create_test_user):
         user = create_test_user(teardown=True)
         collection_of_isbns = [{'isbn': isbn} for isbn in EXISTING_ISBNS]
-        resp = bookstore.add_books(userId=user.user_id, what=collection_of_isbns)
+        resp = bookstore.create_books(userId=user.user_id, what=collection_of_isbns)
         assert resp.status_code == HTTPStatus.BAD_REQUEST
         assert CodeResponse(code='1200', message='UserID and Collection of ISBNs required.')
 
@@ -21,7 +21,7 @@ class TestCreateBooks:
         user = create_test_user(teardown=True)
         token = bookstore.session.headers.pop('Authorization')
         collection_of_isbns = [{'isbn': isbn} for isbn in EXISTING_ISBNS]
-        resp = bookstore.add_books(userId=user.user_id, collectionOfIsbns=collection_of_isbns)
+        resp = bookstore.create_books(userId=user.user_id, collectionOfIsbns=collection_of_isbns)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
         assert CodeResponse(**resp.json()) == CodeResponse(code='1200', message='User not authorized!')
         bookstore.session.headers['Authorization'] = token

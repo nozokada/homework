@@ -31,7 +31,7 @@ class Bookstore(Consumer):
         pass
 
     @post('Books')
-    def add_books(self, **add_list_of_books: Body):
+    def create_books(self, **add_list_of_books: Body):
         pass
 
     @delete('Books')

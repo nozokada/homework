@@ -12,7 +12,7 @@ from homework.resources.constants import NEW_ISBNS
 def create_test_books(request, bookstore, logger):
     def _(user_id: str, teardown: bool = False) -> ISBNResponse:
         collection_of_isbns = [{'isbn': isbn} for isbn in NEW_ISBNS]
-        resp = bookstore.add_books(userId=user_id, collectionOfIsbns=collection_of_isbns)
+        resp = bookstore.create_books(userId=user_id, collectionOfIsbns=collection_of_isbns)
         assert resp.status_code == HTTPStatus.CREATED, f'Failed to create test books with ISBNs {NEW_ISBNS}'
         isbn = ISBNResponse(**resp.json())
         if teardown:
