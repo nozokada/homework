@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import CodeResponse
-from homework.resources.constants import TEST_ISBNS
+from homework.resources.constants import EXISTING_ISBNS
 
 
 class TestCreateBooks:
@@ -13,7 +13,7 @@ class TestCreateBooks:
     def test_create_books_not_authorized(self, create_test_user, bookstore):
         user = create_test_user(teardown=True)
         token = bookstore.session.headers.pop('Authorization')
-        collection_of_isbns = [{'isbn': isbn} for isbn in TEST_ISBNS]
+        collection_of_isbns = [{'isbn': isbn} for isbn in EXISTING_ISBNS]
         resp = bookstore.add_books(userId=user.user_id, collectionOfIsbns=collection_of_isbns)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
         assert CodeResponse(**resp.json()) == CodeResponse(code='1200', message='User not authorized!')
