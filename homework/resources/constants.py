@@ -6,6 +6,8 @@ RESOURCE_DIR = HOMEWORK_DIR / 'resources'
 SELENIUM_WEBDRIVER_PATH = '/Users/nokada/Downloads/chromedriver'
 ALL_BOOKS_FILE_PATH = RESOURCE_DIR / 'all_books.json'
 
+DEMO_QA_URL = 'https://demoqa.com'
+
 TEST_USER_PREFIX = 'testuser_'
 
 NEW_ISBNS = ['9780984782802']

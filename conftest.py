@@ -8,6 +8,7 @@ from selenium import webdriver
 
 from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
+from homework.resources.constants import DEMO_QA_URL
 from homework.resources.constants import RESOURCE_DIR
 from homework.resources.constants import SELENIUM_WEBDRIVER_PATH
 from homework.resources.constants import TEST_USER_PREFIX
@@ -22,13 +23,13 @@ def logger():
 @pytest.fixture
 def account(logger, json_loader):
     logger.debug('Initializing Account connector')
-    return Account(base_url='https://demoqa.com/Account/v1/')
+    return Account(base_url=f'{DEMO_QA_URL}/Account/v1/')
 
 
 @pytest.fixture
 def bookstore(logger):
     logger.debug('Initializing Bookstore connector')
-    return Bookstore(base_url='https://demoqa.com/Bookstore/v1/')
+    return Bookstore(base_url=f'{DEMO_QA_URL}/Bookstore/v1/')
 
 
 @pytest.fixture
