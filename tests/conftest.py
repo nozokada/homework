@@ -5,6 +5,7 @@ import pytest
 
 from homework.models.bookstore import ISBNResponse
 from homework.models.bookstore import User
+from homework.resources.constants import DEMO_QA_URL
 from homework.resources.constants import NEW_ISBNS
 
 
@@ -56,5 +57,19 @@ def get_test_user(account, logger):
         assert resp.status_code == HTTPStatus.OK, f'Failed to retrieve test user with user id {user_id}'
         user = User(**resp.json())
         return user
+
+    return _
+
+
+@pytest.fixture
+def login_with_ui(selenium_webdriver, create_test_user, username_generator, password_generator):
+    def _(username: str, password: str):
+        selenium_webdriver.get(f'{DEMO_QA_URL}/login')
+        username_field = selenium_webdriver.find_element_by_id('userName')
+        password_field = selenium_webdriver.find_element_by_id('password')
+        username_field.send_keys(username)
+        password_field.send_keys(password)
+        login_button = selenium_webdriver.find_element_by_id('login')
+        login_button.click()
 
     return _
