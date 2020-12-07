@@ -10,6 +10,7 @@ from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
 from homework.resources.constants import DEMO_QA_URL
 from homework.resources.constants import RESOURCE_DIR
+from homework.resources.constants import SELENIUM_WAIT_IN_SEC
 from homework.resources.constants import SELENIUM_WEBDRIVER_PATH
 from homework.resources.constants import TEST_USER_PREFIX
 from homework.utils.logger import LoggerWrapper
@@ -38,6 +39,7 @@ def selenium_webdriver(request, logger):
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     driver = webdriver.Chrome(executable_path=SELENIUM_WEBDRIVER_PATH, options=options)
+    driver.implicitly_wait(SELENIUM_WAIT_IN_SEC)
     yield driver
 
     screenshot_path = str(RESOURCE_DIR / f'{request.node.name}.png')
