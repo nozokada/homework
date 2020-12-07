@@ -1,6 +1,7 @@
 import json
 import random
 import string
+import uuid
 
 import pytest
 from selenium import webdriver
@@ -39,6 +40,11 @@ def selenium_webdriver(request, logger):
     screenshot_path = str(RESOURCE_DIR / f'{request.node.name}.png')
     driver.save_screenshot(filename=screenshot_path)
     driver.quit()
+
+
+@pytest.fixture
+def user_id_generator(logger):
+    return lambda: uuid.uuid4()
 
 
 @pytest.fixture
