@@ -16,6 +16,10 @@ class TokenResponse(BaseModel):
     result: str
 
 
+class ISBNResponse(BaseModel):
+    isbn: str
+
+
 class Book(BaseModel):
     isbn: str
     title: str
