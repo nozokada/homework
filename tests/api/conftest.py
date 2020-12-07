@@ -31,7 +31,7 @@ def create_test_user(request, account, bookstore, username_generator, password_g
             password = password_generator()
         resp = account.create_user(userName=username, password=password)
 
-        assert resp.status_code == HTTPStatus.CREATED, f'Failed to create test user {username}'
+        assert resp.status_code == HTTPStatus.CREATED, f'Failed to create test user with username {username}'
         user_info_dict = resp.json()
         user_info_dict['userId'] = user_info_dict.pop('userID')  # TODO: Dev needs to change userID to userId!!!
         user = User(**user_info_dict)
