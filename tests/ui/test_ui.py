@@ -11,7 +11,7 @@ class TestUI:
         username_label = selenium_webdriver.find_element_by_id('userName-value')
         assert username_label.text == username
 
-    def test_login_fail(
+    def test_login_with_bad_password(
         self, selenium_webdriver, create_test_user, username_generator, password_generator, login_with_ui
     ):
         username = username_generator()
