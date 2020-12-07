@@ -9,6 +9,7 @@ from selenium import webdriver
 from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
 from homework.resources.constants import DEMO_QA_URL
+from homework.resources.constants import SPECIAL_CHARACTERS
 from homework.resources.constants import RESOURCE_DIR
 from homework.resources.constants import SELENIUM_WAIT_IN_SEC
 from homework.resources.constants import SELENIUM_WEBDRIVER_PATH
@@ -66,14 +67,14 @@ def username_generator(logger):
 
 @pytest.fixture
 def password_generator(logger):
-    def _(length: int = 24):
-        all_character_set = string.ascii_uppercase + string.ascii_lowercase + string.punctuation + string.digits
+    def _(length: int = 8):
+        all_character_set = string.ascii_uppercase + string.ascii_lowercase + string.digits + SPECIAL_CHARACTERS
         rand_upper = random.choices(string.ascii_uppercase)
         rand_lower = random.choices(string.ascii_lowercase)
-        rand_symbol = random.choices(string.punctuation)
         rand_digit = random.choices(string.digits)
+        rand_special = random.choices(SPECIAL_CHARACTERS)
 
-        password = rand_upper + rand_lower + rand_symbol + rand_digit
+        password = rand_upper + rand_lower + rand_digit + rand_special
 
         for i in range(length - 4):
             password += random.choices(all_character_set)

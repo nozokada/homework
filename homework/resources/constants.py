@@ -10,6 +10,7 @@ DEMO_QA_URL = 'https://demoqa.com'
 
 TEST_USER_PREFIX = 'test_user_'
 BAD_PASSWORD = 'badpassword'
+SPECIAL_CHARACTERS = '!@#$%^&*'
 
 NEW_ISBNS = ['9780984782802']
 EXISTING_ISBNS = ['9781449325862']
