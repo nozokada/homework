@@ -7,7 +7,7 @@ from selenium import webdriver
 
 from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
-from homework.models.constants import SELENIUM_WEBDRIVER_PATH, RESOURCE_DIR, TEST_USER_PREFIX
+from homework.resources.constants import SELENIUM_WEBDRIVER_PATH, RESOURCE_DIR, TEST_USER_PREFIX
 from homework.utils.logger import LoggerWrapper
 
 
