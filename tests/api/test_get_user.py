@@ -10,7 +10,7 @@ class TestGetUser:
         created_user = get_test_user(user_id=user.user_id)
         assert user == created_user
 
-    def test_get_nonexistent_user(self, account, create_test_user, user_id_generator):
+    def test_get_other_user(self, account, create_test_user, user_id_generator):
         create_test_user(teardown=True)
         resp = account.get_user(userId=user_id_generator())
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
