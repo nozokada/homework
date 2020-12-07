@@ -4,13 +4,13 @@ from http import HTTPStatus
 import pytest
 
 from homework.models.bookstore import User
+from homework.resources.constants import TEST_ISBNS
 
 
 @pytest.fixture
 def create_test_books(request, bookstore, logger):
     def _(user_id: str, teardown: bool = False):
-        isbns = ['9781449325862']
-        collection_of_isbns = [{'isbn': isbn} for isbn in isbns]
+        collection_of_isbns = [{'isbn': isbn} for isbn in TEST_ISBNS]
         resp = bookstore.add_books(userId=user_id, collectionOfIsbns=collection_of_isbns)
         assert resp.status_code == HTTPStatus.CREATED, 'Failed to create test books'
         if teardown:
