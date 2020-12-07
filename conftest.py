@@ -8,7 +8,9 @@ from selenium import webdriver
 
 from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
-from homework.resources.constants import SELENIUM_WEBDRIVER_PATH, RESOURCE_DIR, TEST_USER_PREFIX
+from homework.resources.constants import RESOURCE_DIR
+from homework.resources.constants import SELENIUM_WEBDRIVER_PATH
+from homework.resources.constants import TEST_USER_PREFIX
 from homework.utils.logger import LoggerWrapper
 
 
