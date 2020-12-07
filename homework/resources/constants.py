@@ -3,7 +3,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent.parent
 HOMEWORK_DIR = Path(__file__).parent.parent
 RESOURCE_DIR = HOMEWORK_DIR / 'resources'
-SELENIUM_WEBDRIVER_PATH = '/Users/nokada/Downloads/chromedriver'
+SELENIUM_WEBDRIVER_PATH = RESOURCE_DIR / 'chromedriver'
 ALL_BOOKS_FILE_PATH = RESOURCE_DIR / 'all_books.json'
 
 DEMO_QA_URL = 'https://demoqa.com'
