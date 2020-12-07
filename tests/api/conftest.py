@@ -12,7 +12,7 @@ def create_test_books(request, bookstore, logger):
     def _(user_id: str, teardown: bool = False):
         collection_of_isbns = [{'isbn': isbn} for isbn in TEST_ISBNS]
         resp = bookstore.add_books(userId=user_id, collectionOfIsbns=collection_of_isbns)
-        assert resp.status_code == HTTPStatus.CREATED, 'Failed to create test books'
+        assert resp.status_code == HTTPStatus.CREATED, f'Failed to create test books with ISBNs {TEST_ISBNS}'
         if teardown:
             request.addfinalizer(partial(bookstore.delete_books, user_id))
         isbn = resp.json()['isbn']
@@ -31,7 +31,7 @@ def create_test_user(request, account, bookstore, username_generator, password_g
             password = password_generator()
         resp = account.create_user(userName=username, password=password)
 
-        assert resp.status_code == HTTPStatus.CREATED, 'Failed to create test user'
+        assert resp.status_code == HTTPStatus.CREATED, f'Failed to create test user {username}'
         user_info_dict = resp.json()
         user_info_dict['userId'] = user_info_dict.pop('userID')  # TODO: Dev needs to change userID to userId!!!
         user = User(**user_info_dict)
@@ -52,7 +52,7 @@ def get_test_user(account, logger):
     def _(user_id: str) -> User:
         logger.info('Retrieving test user with id %s', user_id)
         resp = account.get_user(userId=user_id)
-        assert resp.status_code == HTTPStatus.OK, 'Failed to retrieve test user'
+        assert resp.status_code == HTTPStatus.OK, f'Failed to retrieve test user with user id {user_id}'
         user = User(**resp.json())
         return user
 
