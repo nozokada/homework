@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from homework.models.bookstore import CodeResponse
+from homework.models.bookstore import MessageResponse
 
 
 class TestGetUser:
@@ -14,12 +14,12 @@ class TestGetUser:
         create_test_user(teardown=True)
         resp = account.get_user(userId=user_id_generator())
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1207', message='User not found!')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1207', message='User not found!')
 
     def test_get_user_not_authorized(self, account, create_test_user):
         user = create_test_user(teardown=True)
         token = account.session.headers.pop('Authorization')
         resp = account.get_user(userId=user.user_id)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1200', message='User not authorized!')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1200', message='User not authorized!')
         account.session.headers['Authorization'] = token

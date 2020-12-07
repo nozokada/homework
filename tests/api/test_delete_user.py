@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from homework.models.bookstore import CodeResponse
+from homework.models.bookstore import MessageResponse
 
 
 class TestDeleteUser:
@@ -15,12 +15,12 @@ class TestDeleteUser:
         create_test_user(teardown=True)
         resp = account.delete_user(userId='invalid_user_id')
         assert resp.status_code == HTTPStatus.OK
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1207', message='User Id not correct!')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1207', message='User Id not correct!')
 
     def test_delete_user_not_authorized(self, account, create_test_user):
         user = create_test_user(teardown=True)
         token = account.session.headers.pop('Authorization')
         resp = account.delete_user(userId=user.user_id)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1200', message='User not authorized!')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1200', message='User not authorized!')
         account.session.headers['Authorization'] = token

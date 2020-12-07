@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from homework.models.bookstore import CodeResponse
+from homework.models.bookstore import MessageResponse
 
 
 class TestCreateUser:
@@ -16,19 +16,19 @@ class TestCreateUser:
         create_test_user(username=username, password=password, teardown=True)
         resp = account.create_user(userName=username, password=password)
         assert resp.status_code == HTTPStatus.NOT_ACCEPTABLE
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1204', message='User exists!')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1204', message='User exists!')
 
     def test_create_new_user_with_bad_format(self, account, username_generator, password_generator):
         resp = account.create_user(userName=username_generator(), what=password_generator())
         assert resp.status_code == HTTPStatus.BAD_REQUEST
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1200', message='UserName and Password required.')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1200', message='UserName and Password required.')
 
     def test_create_new_user_with_weak_password(self, account, username_generator):
         username = username_generator()
         password = 'badpassword'
         resp = account.create_user(userName=username, password=password)
         assert resp.status_code == HTTPStatus.BAD_REQUEST
-        assert CodeResponse(**resp.json()) == CodeResponse(
+        assert MessageResponse(**resp.json()) == MessageResponse(
             code='1300',
             message='Passwords must have at least one non alphanumeric character, '
                     'one digit (\'0\'-\'9\'), one uppercase (\'A\'-\'Z\'), '

@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from homework.models.bookstore import CodeResponse
+from homework.models.bookstore import MessageResponse
 
 
 class TestDeleteBooks:
@@ -18,5 +18,5 @@ class TestDeleteBooks:
         token = bookstore.session.headers.pop('Authorization')
         resp = bookstore.delete_books(userId=user.user_id)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
-        assert CodeResponse(**resp.json()) == CodeResponse(code='1200', message='User not authorized!')
+        assert MessageResponse(**resp.json()) == MessageResponse(code='1200', message='User not authorized!')
         bookstore.session.headers['Authorization'] = token

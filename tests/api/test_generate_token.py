@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from homework.models.bookstore import TokenResponse, CodeResponse
+from homework.models.bookstore import TokenResponse, MessageResponse
 
 
 class TestGenerateToken:
@@ -34,4 +34,4 @@ class TestGenerateToken:
         create_test_user(username=username, password=password, teardown=True)
         resp = account.generate_token(userName=username, what=password)
         assert resp.status_code == HTTPStatus.BAD_REQUEST
-        assert CodeResponse(code='1200', message='UserName and Password required.')
+        assert MessageResponse(code='1200', message='UserName and Password required.')
