@@ -3,7 +3,7 @@ import logging
 
 class LoggerWrapper:
     def __init__(self):
-        self._logger = logging.getLogger('my-pytest')
+        self._logger = logging.getLogger('homework')
         self._logger.setLevel(logging.DEBUG)
 
     def info(self, *args, **kwargs):
