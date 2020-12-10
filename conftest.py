@@ -39,7 +39,7 @@ def logger():
 
 
 @pytest.fixture
-def account(logger, json_loader):
+def account(logger):
     logger.debug('Initializing Account connector')
     return Account(base_url=f'{DEMO_QA_URL}/Account/v1/')
 
@@ -66,6 +66,7 @@ def selenium_webdriver(request, logger):
 
     if request.node.rep_call.failed:
         screenshot_path = str(RESOURCE_DIR / f'{request.node.name}.png')
+        logger.debug('Saving screenshot to %s', screenshot_path)
         driver.save_screenshot(filename=screenshot_path)
 
     driver.quit()
@@ -73,7 +74,12 @@ def selenium_webdriver(request, logger):
 
 @pytest.fixture
 def user_id_generator(logger):
-    return lambda: uuid.uuid4()
+    def _():
+        user_id = uuid.uuid4()
+        logger.debug('Generated user id %s', user_id)
+        return user_id
+
+    return _
 
 
 @pytest.fixture
