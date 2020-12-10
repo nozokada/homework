@@ -9,6 +9,7 @@ from selenium import webdriver
 
 from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
+from homework.utils.logger import LoggerWrapper
 from tests.constants import DEMO_QA_URL
 from tests.constants import SPECIAL_CHARACTERS
 from tests.constants import RESOURCE_DIR
@@ -17,7 +18,6 @@ from tests.constants import SELENIUM_GRID_RUN
 from tests.constants import SELENIUM_WAIT_IN_SEC
 from tests.constants import SELENIUM_WEBDRIVER_PATH
 from tests.constants import TEST_USER_PREFIX
-from homework.utils.logger import LoggerWrapper
 
 
 def pytest_sessionstart():
@@ -73,8 +73,8 @@ def selenium_webdriver(request, logger):
 
 @pytest.fixture
 def user_id_generator(logger):
-    def _():
-        user_id = uuid.uuid4()
+    def _() -> str:
+        user_id = str(uuid.uuid4())
         logger.debug('Generated user id %s', user_id)
         return user_id
 
@@ -83,7 +83,7 @@ def user_id_generator(logger):
 
 @pytest.fixture
 def username_generator(logger):
-    def _(prefix: str = TEST_USER_PREFIX, length: int = 8):
+    def _(prefix: str = TEST_USER_PREFIX, length: int = 8) -> str:
         choices = string.ascii_letters + string.digits
         username = ''.join(random.choices(choices, k=length))
         username = f'{prefix}{username}'
@@ -95,7 +95,7 @@ def username_generator(logger):
 
 @pytest.fixture
 def password_generator(logger):
-    def _(length: int = 8):
+    def _(length: int = 8) -> str:
         all_character_set = string.ascii_uppercase + string.ascii_lowercase + string.digits + SPECIAL_CHARACTERS
         rand_upper = random.choices(string.ascii_uppercase)
         rand_lower = random.choices(string.ascii_lowercase)
@@ -117,7 +117,7 @@ def password_generator(logger):
 
 @pytest.fixture
 def json_loader(logger):
-    def _(path: str):
+    def _(path: str) -> dict:
         logger.debug('Loading JSON content from %s', path)
         with open(path) as file:
             content = json.load(file)
