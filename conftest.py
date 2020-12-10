@@ -1,4 +1,5 @@
 import json
+import logging
 import random
 import string
 import uuid
@@ -11,10 +12,25 @@ from homework.connectors.bookstore import Bookstore
 from homework.resources.constants import DEMO_QA_URL
 from homework.resources.constants import SPECIAL_CHARACTERS
 from homework.resources.constants import RESOURCE_DIR
+from homework.resources.constants import SELENIUM_GRID_HUB_URL
+from homework.resources.constants import SELENIUM_GRID_RUN
 from homework.resources.constants import SELENIUM_WAIT_IN_SEC
 from homework.resources.constants import SELENIUM_WEBDRIVER_PATH
 from homework.resources.constants import TEST_USER_PREFIX
 from homework.utils.logger import LoggerWrapper
+
+
+def pytest_sessionstart():
+    # Silence urllib3 logger
+    logging.getLogger('urllib3.connectionpool').setLevel(logging.INFO)
+
+
+@pytest.mark.hookwrapper
+def pytest_runtest_makereport(item):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+    return rep
 
 
 @pytest.fixture(scope='session')
@@ -37,14 +53,21 @@ def bookstore(logger):
 @pytest.fixture
 def selenium_webdriver(request, logger):
     logger.debug('Initializing Selenium driver')
+
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
-    driver = webdriver.Chrome(executable_path=SELENIUM_WEBDRIVER_PATH, options=options)
+
+    if SELENIUM_GRID_RUN:
+        driver = webdriver.Remote(command_executor=SELENIUM_GRID_HUB_URL, options=options)
+    else:
+        driver = webdriver.Chrome(executable_path=SELENIUM_WEBDRIVER_PATH, options=options)
     driver.implicitly_wait(SELENIUM_WAIT_IN_SEC)
     yield driver
 
-    screenshot_path = str(RESOURCE_DIR / f'{request.node.name}.png')
-    driver.save_screenshot(filename=screenshot_path)
+    if request.node.rep_call.failed:
+        screenshot_path = str(RESOURCE_DIR / f'{request.node.name}.png')
+        driver.save_screenshot(filename=screenshot_path)
+
     driver.quit()
 
 

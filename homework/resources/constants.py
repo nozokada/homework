@@ -8,6 +8,9 @@ ALL_BOOKS_FILE_PATH = RESOURCE_DIR / 'all_books.json'
 
 DEMO_QA_URL = 'https://demoqa.com'
 
+SELENIUM_GRID_HUB_URL = 'http://localhost:4444/wd/hub'
+SELENIUM_GRID_RUN = False
+
 TEST_USER_PREFIX = 'test_user_'
 BAD_PASSWORD = 'badpassword'
 SPECIAL_CHARACTERS = '!@#$%^&*'
