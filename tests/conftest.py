@@ -5,8 +5,8 @@ import pytest
 
 from homework.models.bookstore import ISBNResponse
 from homework.models.bookstore import User
-from homework.resources.constants import DEMO_QA_URL
-from homework.resources.constants import NEW_ISBNS
+from tests.constants import DEMO_QA_URL
+from tests.constants import NEW_ISBNS
 
 
 @pytest.fixture

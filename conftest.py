@@ -9,14 +9,14 @@ from selenium import webdriver
 
 from homework.connectors.bookstore import Account
 from homework.connectors.bookstore import Bookstore
-from homework.resources.constants import DEMO_QA_URL
-from homework.resources.constants import SPECIAL_CHARACTERS
-from homework.resources.constants import RESOURCE_DIR
-from homework.resources.constants import SELENIUM_GRID_HUB_URL
-from homework.resources.constants import SELENIUM_GRID_RUN
-from homework.resources.constants import SELENIUM_WAIT_IN_SEC
-from homework.resources.constants import SELENIUM_WEBDRIVER_PATH
-from homework.resources.constants import TEST_USER_PREFIX
+from tests.constants import DEMO_QA_URL
+from tests.constants import SPECIAL_CHARACTERS
+from tests.constants import RESOURCE_DIR
+from tests.constants import SELENIUM_GRID_HUB_URL
+from tests.constants import SELENIUM_GRID_RUN
+from tests.constants import SELENIUM_WAIT_IN_SEC
+from tests.constants import SELENIUM_WEBDRIVER_PATH
+from tests.constants import TEST_USER_PREFIX
 from homework.utils.logger import LoggerWrapper
 
 

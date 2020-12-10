@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import MessageResponse
-from homework.resources.constants import BAD_PASSWORD
+from tests.constants import BAD_PASSWORD
 
 
 class TestLogin:

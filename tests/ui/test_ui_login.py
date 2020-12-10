@@ -1,4 +1,4 @@
-from homework.resources.constants import BAD_PASSWORD
+from tests.constants import BAD_PASSWORD
 
 
 class TestUILogin:

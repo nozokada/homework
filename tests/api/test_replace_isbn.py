@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from homework.models.bookstore import Book
 from homework.models.bookstore import MessageResponse
-from homework.resources.constants import NEW_ISBNS
+from tests.constants import NEW_ISBNS
 from homework.utils.deauthorizer import Deauthorizer
 
 

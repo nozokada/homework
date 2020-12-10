@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import MessageResponse
-from homework.resources.constants import INVALID_ISBNS
+from tests.constants import INVALID_ISBNS
 from homework.utils.deauthorizer import Deauthorizer
 
 

@@ -1,4 +1,4 @@
-from homework.resources.constants import DEMO_QA_URL
+from tests.constants import DEMO_QA_URL
 
 
 class TestUIProfile:

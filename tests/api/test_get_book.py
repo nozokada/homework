@@ -1,8 +1,8 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import Book, MessageResponse
-from homework.resources.constants import INVALID_ISBNS
-from homework.resources.constants import EXISTING_ISBNS
+from tests.constants import INVALID_ISBNS
+from tests.constants import EXISTING_ISBNS
 
 
 class TestGetBook:

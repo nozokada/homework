@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from homework.models.bookstore import Book
-from homework.resources.constants import ALL_BOOKS_FILE_PATH
+from tests.constants import ALL_BOOKS_FILE_PATH
 
 
 class TestGetBooks:
