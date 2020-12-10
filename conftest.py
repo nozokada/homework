@@ -54,7 +54,7 @@ def selenium_webdriver(request, logger):
     logger.debug('Initializing Selenium driver')
 
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
+    options.add_argument('--headless')
 
     if SELENIUM_GRID_RUN:
         driver = webdriver.Remote(command_executor=SELENIUM_GRID_HUB_URL, options=options)
