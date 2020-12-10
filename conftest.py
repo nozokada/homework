@@ -25,12 +25,11 @@ def pytest_sessionstart():
     logging.getLogger('urllib3.connectionpool').setLevel(logging.INFO)
 
 
-@pytest.mark.hookwrapper
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item):
-    outcome = yield
-    rep = outcome.get_result()
-    setattr(item, f'rep_{rep.when}', rep)
-    return rep
+    report = (yield).get_result()
+    if report.when == 'call':
+        setattr(item, 'report', report)
 
 
 @pytest.fixture(scope='session')
@@ -64,7 +63,7 @@ def selenium_webdriver(request, logger):
     driver.implicitly_wait(SELENIUM_WAIT_IN_SEC)
     yield driver
 
-    if request.node.rep_call.failed:
+    if request.node.report and request.node.report.failed:
         screenshot_path = str(RESOURCE_DIR / f'{request.node.name}.png')
         logger.debug('Saving screenshot to %s', screenshot_path)
         driver.save_screenshot(filename=screenshot_path)
